@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALAST - 阿里集团 × 蚂蚁 CS大赛</title>
+    <style>
+        :root {
+            --primary-blue: #0066FF;
+            --primary-orange: #FF6600;
+            --dark: #1a1a2e;
+            --light: #f5f7fa;
+            --white: #ffffff;
+            --gray: #666;
+            --gray-light: #e0e0e0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, var(--dark) 0%, #2a2a4a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 102, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .stat-number .highlight {
+            color: var(--primary-orange);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 102, 255, 0.5);
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gray);
+        }
+
+        /* About */
+        .about {
+            background: var(--white);
+        }
+
+        .about-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .about-card {
+            padding: 40px;
+            background: var(--light);
+            border-radius: 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .about-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .about-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .about-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Teams */
+        .teams {
+            background: var(--light);
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .team-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .team-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .team-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .team-slogan {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .team-members {
+            border-top: 1px solid var(--gray-light);
+            padding-top: 16px;
+        }
+
+        .team-members-title {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-members-title::after {
+            content: '▼';
+            font-size: 10px;
+            transition: var(--transition);
+        }
+
+        .team-card.collapsed .team-members-list {
+            display: none;
+        }
+
+        .team-card.collapsed .team-members-title::after {
+            transform: rotate(-90deg);
+        }
+
+        .team-member {
+            font-size: 13px;
+            padding: 4px 0;
+            color: var(--gray);
+        }
+
+        /* Schedule */
+        .schedule {
+            background: var(--white);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--primary-orange));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 2px var(--primary-blue);
+        }
+
+        .timeline-content {
+            background: var(--light);
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 350px;
+        }
+
+        .timeline-phase {
+            font-size: 12px;
+            color: var(--primary-orange);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .tbd {
+            color: var(--primary-orange);
+            font-weight: 500;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--light);
+        }
+
+        .gallery-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .gallery-link {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--white);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .gallery-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .gallery-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .gallery-info h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .gallery-info p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 60px 0 30px;
+            color: var(--white);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo .logo-icon {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 24px;
+            color: var(--white);
+            -webkit-text-fill-color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a {
+            display: block;
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero-stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+
+            .about-cards,
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .gallery-links {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">A</div>
+                <span class="logo-text">ALAST</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">关于比赛</a></li>
+                <li><a href="#teams">参赛队伍</a></li>
+                <li><a href="#schedule">赛程安排</a></li>
+                <li><a href="#gallery">赛事集锦</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1><span>ALAST</span></h1>
+            <p class="hero-subtitle">阿里集团 × 蚂蚁 CS大赛</p>
+            <p class="hero-desc">汇聚阿里与蚂蚁精英，共筑网络安全防线</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">15<span class="highlight">队</span></div>
+                    <div class="stat-label">参赛队伍</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="highlight">75</span>人</div>
+                    <div class="stat-label">参赛选手</div>
+                </div>
+            </div>
+            <a href="#schedule" class="cta-button">查看赛程</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">关于比赛</h2>
+                <p class="section-subtitle">ALAST是由阿里集团与蚂蚁联合举办的重量级网络安全赛事</p>
+            </div>
+            <div class="about-cards">
+                <div class="about-card">
+                    <div class="about-icon">🏛️</div>
+                    <h3>主办方</h3>
+                    <p>阿里集团 × 蚂蚁<br>强强联手，规格拉满</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h3>赛事目标</h3>
+                    <p>挖掘安全人才<br>提升实战能力</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🏆</div>
+                    <h3>奖项设置</h3>
+                    <p>丰厚奖金与荣誉<br>等你来战</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams -->
+    <section class="section teams" id="teams">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">参赛队伍</h2>
+                <p class="section-subtitle">共15支队伍，75名选手同场竞技</p>
+            </div>
+            <div class="teams-grid" id="teamsGrid">
+                <!-- Teams will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="section schedule" id="schedule">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">赛程安排</h2>
+                <p class="section-subtitle">多轮赛制，层层递进</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-phase">Round 1</div>
+                        <div class="timeline-title">初赛</div>
+                        <div class="timeline-date">日期：<span class="tbd">待定</span></div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-phase">Round 2</div>
+                        <div class="timeline-title">复赛</div>
+                        <div class="timeline-date">日期：<span class="tbd">待定</span></div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-phase">Final</div>
+                        <div class="timeline-title">决赛</div>
+                        <div class="timeline-date">日期：<span class="tbd">待定</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">赛事集锦</h2>
+                <p class="section-subtitle">精彩瞬间，一触即达</p>
+            </div>
+            <div class="gallery-links">
+                <a href="https://www.bilibili.com" target="_blank" class="gallery-link">
+                    <div class="gallery-icon">📺</div>
+                    <div class="gallery-info">
+                        <h3>B站视频</h3>
+                        <p>点击前往B站观看赛事集锦</p>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com" target="_blank" class="gallery-link">
+                    <div class="gallery-icon">🎬</div>
+                    <div class="gallery-info">
+                        <h3>YouTube</h3>
+                        <p>点击前往YouTube观看赛事集锦</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-icon">A</div>
+                    <span class="logo-text">ALAST</span>
+                </div>
+                <div class="footer-links">
+                    <div>
+                        <h4>快速链接</h4>
+                        <a href="#about">关于比赛</a>
+                        <a href="#teams">参赛队伍</a>
+                        <a href="#schedule">赛程安排</a>
+                    </div>
+                    <div>
+                        <h4>联系方式</h4>
+                        <a href="#">Email</a>
+                        <a href="#">微信群</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 ALAST All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Team data
+        const teams = [
+            { name: 'SecurityFirst', slogan: '安全第一，永不妥协', members: ['张三', '李四', '王五', '赵六', '钱七'] },
+            { name: 'ByteGuard', slogan: '守护字节，抵御威胁', members: ['孙某', '周某', '吴某', '郑某', '冯某'] },
+            { name: 'CyberShield', slogan: '网络防线，由我守护', members: ['陈某', '褚某', '卫某', '蒋某', '沈某'] },
+            { name: 'DataSentinel', slogan: '数据哨兵，时刻警惕', members: ['韩某', '杨某', '朱某', '秦某', '尤某'] },
+            { name: 'InfoWall', slogan: '信息长城，固若金汤', members: ['许某', '何某', '吕某', '施某', '张某一'] },
+            { name: 'ZeroDay', slogan: '零日防御，先发制人', members: ['孔某', '曹某', '严某', '华某', '金某'] },
+            { name: 'CryptoKnight', slogan: '加密骑士，使命必达', members: ['魏某', '陶某', '姜某', '戚某', '谢某'] },
+            { name: 'NetPioneer', slogan: '网络先锋，砥砺前行', members: ['邹某', '喻某', '柏某', '水某', '窦某'] },
+            { name: 'FirewallPro', slogan: '防火墙专家，专业守护', members: ['章某', '云某', '苏某', '潘某', '葛某'] },
+            { name: 'HackBuster', slogan: '黑客克星，无处遁形', members: ['奚某', '范某', '彭某', '郎某', '鲁某'] },
+            { name: 'SecureStack', slogan: '安全栈内，层层防御', members: ['韦某', '昌某', '马某', '苗某', '凤某'] },
+            { name: 'CodeGuardian', slogan: '代码守卫，使命在肩', members: ['花某', '方某', '俞某', '任某', '袁某'] },
+            { name: 'ThreatHunter', slogan: '威胁猎手，主动出击', members: ['柳某', '史某', '龙某', '陶某', '梅某'] },
+            { name: 'PatchWarden', slogan: '补丁管理员，安全补丁我来守', members: ['钟某', '丘某', '邬某', '常某', '乐某'] },
+            { name: 'WhiteHat', slogan: '白帽黑客，正义之举', members: ['于某', '时某', '傅某', '皮某', '卞某'] }
+        ];
+
+        // Render teams
+        const teamsGrid = document.getElementById('teamsGrid');
+        teams.forEach((team, index) => {
+            const card = document.createElement('div');
+            card.className = 'team-card collapsed';
+            card.innerHTML = `
+                <div class="team-header">
+                    <div class="team-avatar">${index + 1}</div>
+                    <div class="team-name">${team.name}</div>
+                </div>
+                <div class="team-slogan">"${team.slogan}"</div>
+                <div class="team-members">
+                    <div class="team-members-title">成员</div>
+                    <div class="team-members-list">
+                        ${team.members.map(m => `<div class="team-member">${m}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            card.querySelector('.team-members-title').addEventListener('click', () => {
+                card.classList.toggle('collapsed');
+            });
+
+            teamsGrid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
